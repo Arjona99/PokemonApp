@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PokemonApp</string>
+    <string name="pokedex">Echa un vistazo a tu Pokédex!</string>
+    <string name="fetchError">No fue posible obtener los datos</string>
+</resources>
