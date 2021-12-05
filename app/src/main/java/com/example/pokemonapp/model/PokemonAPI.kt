@@ -11,7 +11,7 @@ interface PokemonAPI {
     @GET
     fun getPokemons(@Url url: String?): Call<JsonResponse>
 
-//    @GET("api/v2/pokemon/{id}")
-//    fun getPokemonDetail(@Path("id") id: String?): Call<PokemonDetail>
+    @GET("api/v2/pokemon/{id}")
+    fun getPokemonDetail(@Path("id") id: String?): Call<PokemonDetail>
 
 }

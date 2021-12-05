@@ -2,4 +2,14 @@
     <string name="app_name">PokemonApp</string>
     <string name="pokedex">Echa un vistazo a tu Pokédex!</string>
     <string name="fetchError">No fue posible obtener los datos</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="weightUnits">lbs</string>
+    <string name="heightUnits">\'</string>
+    <string name="hp">Vida</string>
+    <string name="attack">Ataque</string>
+    <string name="defense">Defensa</string>
+    <string name="special_attack">Ataque especial</string>
+    <string name="special_defense">Defensa especial</string>
+    <string name="speed">Velocidad</string>
 </resources>

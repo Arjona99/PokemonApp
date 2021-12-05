@@ -13,4 +13,6 @@ class Pokemon {
 
     @SerializedName("name")
     var name: String? = null
+
+    var id: Int? = null
 }

@@ -1,5 +1,6 @@
 package com.example.pokemonapp.view.activites
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.example.pokemonapp.databinding.ActivityMainBinding
 import com.example.pokemonapp.model.JsonResponse
 import com.example.pokemonapp.model.Pokemon
 import com.example.pokemonapp.model.PokemonAPI
+import com.example.pokemonapp.model.PokemonDetail
 import com.example.pokemonapp.view.adapter.Adapter
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity(), Adapter.OnItemListener {
         setContentView(binding.root)
 
 
-        var retrofit: Retrofit = Retrofit.Builder()
+        val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -51,8 +53,6 @@ class MainActivity : AppCompatActivity(), Adapter.OnItemListener {
 
         call.enqueue(object: Callback<JsonResponse>{
             override fun onResponse(call: Call<JsonResponse>, response: Response<JsonResponse>) {
-                Log.d(LOGTAG, "Respuesta del servidor: ${response.body()!!.results}")
-
                 binding.pbConexion.visibility = View.INVISIBLE
 
                 val adaptador = Adapter(this@MainActivity, response.body()!!.results!!, this@MainActivity)
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity(), Adapter.OnItemListener {
             }
 
             override fun onFailure(call: Call<JsonResponse>, t: Throwable) {
-                Log.d(LOGTAG, t.message!!)
                 Toast.makeText(this@MainActivity, getString(R.string.fetchError) , Toast.LENGTH_SHORT).show()
                 binding.pbConexion.visibility = View.INVISIBLE
             }
@@ -75,6 +74,10 @@ class MainActivity : AppCompatActivity(), Adapter.OnItemListener {
     }
 
     override fun onItemClick(pokemon: Pokemon) {
-        TODO("Not yet implemented")
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        val parametros = Bundle()
+        parametros.putString("pokemon_id", pokemon.id.toString())
+        intent.putExtras(parametros)
+        startActivity(intent)
     }
 }

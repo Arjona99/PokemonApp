@@ -21,7 +21,7 @@ class Adapter(context: Context, pokemons: List<Pokemon>, onItemListener: OnItemL
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(pokemons[position])
+        holder.bindData(pokemons[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -37,6 +37,7 @@ class Adapter(context: Context, pokemons: List<Pokemon>, onItemListener: OnItemL
         View.OnClickListener {
 
         private val tvPokemonName = binding.tvPokemonName
+        private val tvNumber = binding.tvNumber
         private val onItemListener = onItemListener
         private lateinit var pokemon: Pokemon
 
@@ -48,8 +49,10 @@ class Adapter(context: Context, pokemons: List<Pokemon>, onItemListener: OnItemL
             onItemListener.onItemClick(pokemon)
         }
 
-        fun bindData(item: Pokemon){
-            tvPokemonName.text = item.name
+        fun bindData(item: Pokemon, position: Int){
+            tvPokemonName.text = item.name!!.capitalize()
+            tvNumber.text = "#${(position+1).toString()}"
+            item.id = position+1
             pokemon = item
         }
 
