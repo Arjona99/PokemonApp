@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailActivity: AppCompatActivity() {
 
     private lateinit var binding: PokemonDetailBinding
-    private val BASE_URL = "https://pokeap.com/"
+    private val BASE_URL = "https://pokeapi.co/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,6 @@ class DetailActivity: AppCompatActivity() {
 
         call.enqueue(object: Callback<PokemonDetail> {
             override fun onResponse(call: Call<PokemonDetail>, response: Response<PokemonDetail>) {
-                //binding.pbConexion.visibility = View.INVISIBLE
                 val details = response.body()
                 with(binding) {
                     tvNameDetail.text = details!!.name!!.capitalize()
@@ -59,9 +58,6 @@ class DetailActivity: AppCompatActivity() {
                         ivType2.setImageResource(getTypeImage(details!!.types!![1].typeInfo!!.name!!))
                     }
 
-                    pbDetails.visibility = View.INVISIBLE
-                    cvDetail.visibility = View.VISIBLE
-
                     for ( stat in details.stats!!.subList(0,3)) {
                         addStatLayout(stat.stat!!.statName!!, stat.base_stat!!, true )
                     }
@@ -69,15 +65,16 @@ class DetailActivity: AppCompatActivity() {
                         addStatLayout(stat.stat!!.statName!!, stat.base_stat!!, false )
                     }
 
-
-
+                    pbDetails.visibility = View.INVISIBLE
+                    cvDetail.visibility = View.VISIBLE
                 }
 
             }
 
             override fun onFailure(call: Call<PokemonDetail>, t: Throwable) {
                 Log.d("LOGS", "Respuesta del servidor: ${t.message}")
-                Toast.makeText(this@DetailActivity, getString(R.string.fetchError) , Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@DetailActivity, getString(R.string.fetchError) , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailActivity, t.message , Toast.LENGTH_SHORT).show()
                 binding.pbDetails.visibility = View.INVISIBLE
             }
         })
